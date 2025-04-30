@@ -173,11 +173,13 @@ public class Stanza {
 		Attrezzo attrezzoCercato;
 		attrezzoCercato = null;
 		for (Attrezzo attrezzo : this.attrezzi) {
-			if (attrezzo.getNome().equals(nomeAttrezzo))
+			if ( attrezzo!=null && attrezzo.getNome().equals(nomeAttrezzo)) // nb: cambiare l'ordine dei controlli modifica l'esito -> prima verificare se è nullo
 				attrezzoCercato = attrezzo;
 			break;
 		}
+		
 		return attrezzoCercato;	
+		
 	}
 
 	/**

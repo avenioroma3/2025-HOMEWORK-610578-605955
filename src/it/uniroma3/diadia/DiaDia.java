@@ -49,12 +49,19 @@ public class DiaDia {
 		String istruzione; 
 		Scanner scannerDiLinee;
 
-//		System.out.println(MESSAGGIO_BENVENUTO);
+		System.out.println(MESSAGGIO_BENVENUTO);
 		IOConsole.mostraMessaggio(MESSAGGIO_BENVENUTO);
-	scannerDiLinee = new Scanner(System.in);	
+		
+//	scannerDiLinee = new Scanner(System.in);	
+//		do		
+//			istruzione = scannerDiLinee.nextLine();
+//		while (!processaIstruzione(istruzione));
+		
 		do		
-			istruzione = scannerDiLinee.nextLine();
-		while (!processaIstruzione(istruzione));
+		istruzione =  IOConsole.leggiRiga();
+	while (!processaIstruzione(istruzione));
+	
+		
 	}   
 
 
@@ -172,17 +179,24 @@ public class DiaDia {
 
 	public void posaOggetto(String string) {
 		Attrezzo droppedtool = partita.giocatore.getBorsa().getAttrezzo(string);
+		if(droppedtool==null) {
+			IOConsole.mostraMessaggio("Non ho trovato nessun oggetto da posare...");
+			return; // esco dal metodo -> se continuo con le istruzioni successive mi da errore
+		}
 		partita.giocatore.getBorsa().removeAttrezzo(string);
 		partita.getStanzaCorrente().addAttrezzo(droppedtool);
+		System.out.println("Hai posato: "+droppedtool.getNome());
 	}
 	
 	public void prendiOggetto(String string) {
 		Attrezzo pickuptool = partita.getStanzaCorrente().getAttrezzo(string);
 		if(pickuptool==null) {
-			IOConsole.mostraMessaggio("Non ho trovato nessun oggetto...");
+			IOConsole.mostraMessaggio("Non ho trovato nessun oggetto da raccogliere...");
+			return; // esco dal metodo -> se continuo con le istruzioni successive mi da errore
 		}
 		partita.getStanzaCorrente().removeAttrezzo(pickuptool); 
 		partita.giocatore.getBorsa().addAttrezzo(pickuptool);
+		System.out.println("Hai preso: "+pickuptool.getNome());
 	}
 	
 	
