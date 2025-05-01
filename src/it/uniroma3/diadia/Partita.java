@@ -36,6 +36,7 @@ public class Partita {
 //		System.out.println("ho cfu: "+giocatore.getCfu());
 		this.stanzaCorrente=labirinto.getEntrata();
 		this.stanzaVincente=labirinto.getUscita();
+//		this.ioConsole=io; // prima non avevo messo la console, motivo ch
 	}
 
 	public Stanza getStanzaVincente() {

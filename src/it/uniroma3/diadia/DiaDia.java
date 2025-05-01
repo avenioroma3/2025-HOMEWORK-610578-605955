@@ -42,8 +42,8 @@ public class DiaDia {
 //	public Labirinto Labirinto;
 
 	public DiaDia(IO io) {
-		this.partita = new Partita();
 		this.IOConsole= io;
+		this.partita = new Partita();
 		this.partita.setIOConsole(io); // IMPORTANTE PER FARE IN MODO CHE POSSA ESSERE USATO DAGLI ALTRI METODI.
 	}
 
@@ -169,7 +169,7 @@ public class DiaDia {
 
 	public static void main(String[] argc) {
 //		IOConsole IoConsole = new IOConsole();
-		IO io= new IOConsole();
+		IO io= new IOConsole(); // sto creando un'oggetto di tipo IO -> lo tratto come se fosse IOConsole (tempo dinamico)
 		DiaDia gioco = new DiaDia(io);
 		gioco.gioca();
 	}
