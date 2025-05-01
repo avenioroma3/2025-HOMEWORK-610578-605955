@@ -27,8 +27,7 @@ public class Giocatore {
 	public Borsa getBorsa() {
 		return this.borsa;
 	}
-
-
+	
 
 	
 }

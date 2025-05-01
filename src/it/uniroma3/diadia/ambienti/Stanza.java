@@ -122,7 +122,7 @@ public class Stanza {
     
     public String toString() {
     	StringBuilder risultato = new StringBuilder();
-    	risultato.append(this.nome);
+    	risultato.append("Posizione: "+this.nome);
     	risultato.append("\nUscite: ");
     	for (String direzione : this.direzioni)
     		if (direzione!=null)

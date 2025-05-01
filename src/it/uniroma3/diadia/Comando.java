@@ -1,5 +1,5 @@
 package it.uniroma3.diadia;
-
+import it.uniroma3.diadia.Partita;
 
 
 import java.util.Scanner;
@@ -16,32 +16,15 @@ import java.util.Scanner;
  * @version base
  */
 
-public class Comando {
-
-    private String nome;
-    private String parametro;
-
-    public Comando(String istruzione) {
-		Scanner scannerDiParole = new Scanner(istruzione);
-
-		// prima parola: nome del comando
-		if (scannerDiParole.hasNext())
-			this.nome = scannerDiParole.next(); 
-
-		// seconda parola: eventuale parametro
-		if (scannerDiParole.hasNext())
-			this.parametro = scannerDiParole.next();
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public String getParametro() {
-        return this.parametro;
-    }
-
-    public boolean sconosciuto() {
-        return (this.nome == null);
-    }
+public interface Comando {
+  
+    public void esegui(Partita partita);
+    public void setParametro(String parametro); //!!
+    
+   
+  /*  !! La seconda soluzione impone che tutte le classi che
+    implementano Comando abbiano questo metodo */
+    
+    
+    
 }
