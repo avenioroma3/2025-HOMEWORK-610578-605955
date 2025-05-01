@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.comandi.Comando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 import it.uniroma3.diadia.ambienti.*;
 
 
@@ -36,13 +38,13 @@ public class DiaDia {
 	// static final private String[] elencoComandi = {"1)vai ", "2)aiuto", "3)fine","4)prendi *nome_oggetto*","5)posa *nome_oggetto*","6)inventario"};
 
 	private Partita partita;
-	public IOConsole IOConsole;
+	public IO IOConsole;
 //	public Labirinto Labirinto;
 
-	public DiaDia() {
+	public DiaDia(IO io) {
 		this.partita = new Partita();
-		this.IOConsole= new IOConsole();
-		this.partita.setIOConsole(IOConsole); // IMPORTANTE PER FARE IN MODO CHE POSSA ESSERE USATO DAGLI ALTRI METODI.
+		this.IOConsole= io;
+		this.partita.setIOConsole(io); // IMPORTANTE PER FARE IN MODO CHE POSSA ESSERE USATO DAGLI ALTRI METODI.
 	}
 
 	public void gioca() {
@@ -166,8 +168,9 @@ public class DiaDia {
 	}
 
 	public static void main(String[] argc) {
-		IOConsole IoConsole = new IOConsole();
-		DiaDia gioco = new DiaDia();
+//		IOConsole IoConsole = new IOConsole();
+		IO io= new IOConsole();
+		DiaDia gioco = new DiaDia(io);
 		gioco.gioca();
 	}
 	

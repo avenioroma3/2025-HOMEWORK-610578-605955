@@ -15,7 +15,7 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class Partita {
 
-	private IOConsole ioConsole;
+	private IO ioConsole;
 
 	private Stanza stanzaCorrente;
 	private Stanza stanzaVincente;
@@ -90,11 +90,11 @@ public class Partita {
 	
 	// metodi per fare in modo di poter usare l'unica istanza di IOConsole in DiaDia in tutto il codice.
 	
-	public IOConsole getIOConsole() {
+	public IO getIOConsole() {
 		return ioConsole;
 	}
 
-	public void setIOConsole(IOConsole ioConsole) {
+	public void setIOConsole(IO ioConsole) {
 		this.ioConsole = ioConsole;
 	}
 
