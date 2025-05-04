@@ -130,7 +130,14 @@ class StanzaTest {
 			stanza1.removeAttrezzo(tool2); // rimozione attrezzi impostati nel setup
 			assertFalse(stanza1.removeAttrezzo(tool1)); 
 		}
-	
+		
+		@Test
+		public void verificaEsistenzaStanzeAdiacenti() {
+			assertEquals(stanza2,stanza1.getStanzaAdiacente("Nord"));
+			assertEquals(stanza3,stanza1.getStanzaAdiacente("Est"));
+			assertEquals(stanza3,stanza2.getStanzaAdiacente("Est"));
+
+		}
 	
 		
 	}
