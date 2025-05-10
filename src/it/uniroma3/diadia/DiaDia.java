@@ -58,6 +58,7 @@ public class DiaDia {
 		do		
 		istruzione =  IOConsole.leggiRiga();
 	while (!processaIstruzione(istruzione));
+		
 	
 		
 	}   
@@ -176,27 +177,6 @@ public class DiaDia {
 	
 	
 
-//	public void posaOggetto(String string) {
-//		Attrezzo droppedtool = partita.giocatore.getBorsa().getAttrezzo(string);
-//		if(droppedtool==null) {
-//			IOConsole.mostraMessaggio("Non ho trovato nessun oggetto da posare...");
-//			return; // esco dal metodo -> se continuo con le istruzioni successive mi da errore
-//		}
-//		partita.giocatore.getBorsa().removeAttrezzo(string);
-//		partita.getStanzaCorrente().addAttrezzo(droppedtool);
-//		IOConsole.mostraMessaggio("Hai posato: "+droppedtool.getNome());
-//	}
-	
-//	public void prendiOggetto(String string) {
-//		Attrezzo pickuptool = partita.getStanzaCorrente().getAttrezzo(string);
-//		if(pickuptool==null) {
-//			IOConsole.mostraMessaggio("Non ho trovato nessun oggetto da raccogliere...");
-//			return; // esco dal metodo -> se continuo con le istruzioni successive mi da errore
-//		}
-//		partita.getStanzaCorrente().removeAttrezzo(pickuptool); 
-//		partita.giocatore.getBorsa().addAttrezzo(pickuptool);
-//		System.out.println("Hai preso: "+pickuptool.getNome());
-//	}
 	
 	private boolean processaIstruzione(String istruzione) {
 		Comando comandoDaEseguire;
@@ -215,5 +195,13 @@ public class DiaDia {
 	
 	
 }
+	
+	public Partita getPartita()  {
+		return this.partita;
+	}
+	
+	public String getMessaggioBenvenuto() {
+		return this.MESSAGGIO_BENVENUTO;
+	}
 	
 }

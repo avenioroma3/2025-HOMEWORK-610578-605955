@@ -5,6 +5,13 @@ import java.util.Scanner;
 public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi {
 	
 	public Comando costruisciComando(String istruzione) {
+		
+		if (istruzione == null || istruzione.trim().isEmpty()) {
+	        return new ComandoNonValido(); // Ritorna un comando non valido se l'istruzione è null o vuota
+	    }
+		// questa parte solo per IOSIM
+		
+		
 		Scanner scannerDiParole = new Scanner(istruzione);
 		String nomeComando = null;
 		String parametro = null;
