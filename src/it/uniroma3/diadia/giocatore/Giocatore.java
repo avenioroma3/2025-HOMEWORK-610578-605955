@@ -1,15 +1,15 @@
 package it.uniroma3.diadia.giocatore;
 
+import it.uniroma3.diadia.ConfigurazioneDiadia;
+
 public class Giocatore {
 	
-	static final private int CFU_INIZIALI = 20;
+
 	private int cfu;
 	public Borsa borsa;
 	
 	public Giocatore() {
-		this.cfu=CFU_INIZIALI;
-		this.borsa=borsa;
-//		System.out.println("sto cvreando un giuocatore con cfu "+cfu);
+		this.cfu = ConfigurazioneDiadia.getCfuIniziali();
 	}
 	
 	public void setCfu(int cfu) {
@@ -28,7 +28,12 @@ public class Giocatore {
 		return this.borsa;
 	}
 	
-
-	
+	/**
+	 * Restituisce vero se e solo se il giocatore ha ancora dei CFU
+	 * @return vero se il giocatore è vivo
+	 */
+	public boolean isVivo( ) {
+		return (getCfu() != 0);
+	}
 }
 

@@ -5,83 +5,110 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.uniroma3.diadia.IOConsole;
-import it.uniroma3.diadia.Partita;
-import it.uniroma3.diadia.ambienti.StanzaMagica;
+import it.uniroma3.diadia.ambienti.*;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-
 class StanzaMagicaTest {
-
-	Partita partita = new Partita();
 	
-	
-	StanzaMagica s1 = new StanzaMagica("Aula0");
-	StanzaMagica s2 = new StanzaMagica("Aula1",1);
-	StanzaMagica s3 = new StanzaMagica("Aula2",2);
-
-	
-	Attrezzo tool1 = new Attrezzo("Arco",3);
-	Attrezzo tool2 = new Attrezzo("Coltello",2);
-	Attrezzo tool3 = new Attrezzo("Stivali",3);
-	Attrezzo tool4 = new Attrezzo("Moneta",1);
-
-
-
+	StanzaMagica stanza1 = new StanzaMagica("atrio");
+	StanzaMagica stanza2 = new StanzaMagica("biblioteca", 2);
+	Attrezzo tool1 = new Attrezzo("osso", 2);
+	Attrezzo tool2 = new Attrezzo("chiave", 1);
+	Attrezzo tool3 = new Attrezzo("lanterna", 4);
+	Attrezzo tool4 = new Attrezzo("libro", 3);
+	Attrezzo tool5 = new Attrezzo("martello", 1);
 	
 	@BeforeEach
-	public void setUpStanzaMagica() {
-		
-		IOConsole io = new IOConsole();
-		
-		partita.setIOConsole(io);
-		
-		
-		s1.addAttrezzo(tool1);
-		s1.addAttrezzo(tool2);
-		s1.addAttrezzo(tool3);
-		s1.addAttrezzo(tool4);
-		
-		
-		// S1 ha soglia default -> 3
-		// al 4 oggetto il nome cambia
+	void setUp() throws Exception {
+		stanza1.impostaStanzaAdiacente("est", stanza2);
+		stanza2.impostaStanzaAdiacente("ovest", stanza1);
+		stanza1.addAttrezzo(tool1);
+		stanza1.addAttrezzo(tool2);
+	}
 
-		
-		s2.addAttrezzo(tool1);
-		s2.addAttrezzo(tool2);
-		
-		// S2 ha soglai default ->1
-		// il secondo oggetto(tool2) cambia nome
-		
-		
-		
-		s3.addAttrezzo(tool1);
-		s3.addAttrezzo(tool2);
-		
-		
+	/**
+	 * Verifico che la stanza magica funzioni come una stanza normale
+	 */
+	@Test
+	void test_Stanza() {
+		assertEquals(stanza1.getStanzaAdiacente("est"), stanza2);
+		assertEquals(stanza2.getStanzaAdiacente("ovest"), stanza1);
+		assertTrue(stanza1.hasAttrezzo("osso"));
+		assertTrue(stanza1.hasAttrezzo("chiave"));
+		assertFalse(stanza2.hasAttrezzo("osso"));
+	}
+	
+	@Test 
+	void test_addAttrezzo() {
+		assertTrue(stanza1.hasAttrezzo("osso"));
+		assertFalse(stanza1.hasAttrezzo("libro"));
+		stanza1.addAttrezzo(tool4);
+		assertTrue(stanza1.hasAttrezzo("libro"));
 	}
 	
 	@Test
-	// verifico la soglia default -> 3 
-	// non è presente nella stanza l'oggetto da verificare -> bensi il suo nome al contrario
-
-	public void VerificaSogliaDefault() {
-		assertFalse(s1.hasAttrezzo(tool4.getNome()));		
-
+	void test_removeAttrezzo() {
+		assertTrue(stanza1.hasAttrezzo("osso"));
+		stanza1.removeAttrezzo(tool1);
+		assertFalse(stanza1.hasAttrezzo("osso"));
 	}
 	
-	@Test
-	// verifico una soglia non default -> 1
-	// non è presente nella stanza l'oggetto da verificare -> bensi il suo nome al contrario
-
-	public void VerificaSogliaNonDefault() {
-		assertFalse(s2.hasAttrezzo(tool2.getNome()));		
+	@Test 
+	void test_addAttrezzoMagico() {
+		assertTrue(stanza1.hasAttrezzo(tool1.getNome()));
+		assertTrue(stanza1.hasAttrezzo(tool2.getNome()));
+		assertFalse(stanza1.hasAttrezzo(tool3.getNome()));
+		assertFalse(stanza1.hasAttrezzo(tool4.getNome()));
+		assertFalse(stanza1.hasAttrezzo(tool5.getNome()));
+		/*Nella stanza ho 2 oggetti e la soglia è 3 quindi uno viene aggiunto in maniera normale*/
+		stanza1.addAttrezzo(tool3);
+		assertTrue(stanza1.hasAttrezzo(tool3.getNome()));
+		/*Inserisco il 4 oggetto e la stanza ne inverte in nome e ne raddoppia il peso*/
+		stanza1.addAttrezzo(tool4);
+		assertFalse(stanza1.hasAttrezzo(tool4.getNome()));
+		assertFalse(stanza1.hasAttrezzo("libro"));
+		assertTrue(stanza1.hasAttrezzo("orbil"));
+		assertFalse(stanza1.getAttrezzo("orbil").getPeso()==3);
+		assertTrue(stanza1.getAttrezzo("orbil").getPeso()==6);
+		stanza1.addAttrezzo(tool5);
+		assertFalse(stanza1.hasAttrezzo(tool5.getNome()));
+		assertFalse(stanza1.hasAttrezzo("martello"));
+		assertTrue(stanza1.hasAttrezzo("olletram"));
+		assertFalse(stanza1.getAttrezzo("olletram").getPeso()==1);
+		assertTrue(stanza1.getAttrezzo("olletram").getPeso()==2);
 	}
 	
-	@Test
-	// verifico il comportamento se la soglia non viene raggiunta -> i nomi non vengono invertiti.
-	public void VerificaSogliaNonRaggiunta() { 
-		assertTrue(s3.hasAttrezzo(tool1.getNome()) && s3.hasAttrezzo(tool2.getNome())); 
+	@Test 
+	void test_addAttrezzoMagicoConRimozione() {
+		assertTrue(stanza1.hasAttrezzo(tool1.getNome()));
+		assertTrue(stanza1.hasAttrezzo(tool2.getNome()));
+		assertFalse(stanza1.hasAttrezzo(tool3.getNome()));
+		assertFalse(stanza1.hasAttrezzo(tool4.getNome()));
+		assertFalse(stanza1.hasAttrezzo(tool5.getNome()));
+		/*Nella stanza ho 2 oggetti e la soglia è 3 quindi uno viene aggiunto in maniera normale*/
+		stanza1.addAttrezzo(tool3);
+		assertTrue(stanza1.hasAttrezzo(tool3.getNome()));
+		/*Inserisco il 4 oggetto e la stanza ne inverte in nome e ne raddoppia il peso*/
+		stanza1.addAttrezzo(tool4);
+		assertFalse(stanza1.hasAttrezzo(tool4.getNome()));
+		assertFalse(stanza1.hasAttrezzo("libro"));
+		assertTrue(stanza1.hasAttrezzo("orbil"));
+		assertFalse(stanza1.getAttrezzo("orbil").getPeso()==3);
+		assertTrue(stanza1.getAttrezzo("orbil").getPeso()==6);
+		/*faccio in modo di ritornare a 2 oggetti nella stanza*/
+		stanza1.removeAttrezzo(tool1);
+		stanza1.removeAttrezzo(stanza1.getAttrezzo("orbil"));
+		assertFalse(stanza1.hasAttrezzo(tool1.getNome()));
+		assertFalse(stanza1.hasAttrezzo(tool4.getNome()));
+		assertFalse(stanza1.hasAttrezzo("orbil"));
+		/*ora il primo viene aggiunto normalmente, mentre il secondo subisce gli effetti di stanza magica*/
+		stanza1.addAttrezzo(tool4);
+		assertTrue(stanza1.hasAttrezzo(tool4.getNome()));
+		assertTrue(stanza1.getAttrezzo(tool4.getNome()).getPeso()==3);
+		assertFalse(stanza1.hasAttrezzo("orbil"));
+		assertFalse(stanza1.hasAttrezzo("evaihc"));
+		stanza1.addAttrezzo(tool2);
+		assertTrue(stanza1.hasAttrezzo("evaihc"));
+		assertTrue(stanza1.getAttrezzo("evaihc").getPeso()==2);
 	}
 	
-
 }

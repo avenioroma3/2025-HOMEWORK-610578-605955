@@ -1,0 +1,9 @@
+Stanze: Atrio, AulaN10, AulaN11, Biblioteca, LaboratorioCampus, Magazzino, StanzaMagica, Caverna, Cortile
+Magiche: StanzaMagica 2
+Bloccate: Atrio nord chiave, Magazzino est chiaveMagica
+Buie: Caverna lanterna
+Personaggi: Mago Merlino StanzaMagica evaihc 5, Cane Cerbero Caverna chiaveMagica 2, Strega Ethel AulaN10
+Inizio: Atrio
+Vincente: Biblioteca
+Attrezzi: lanterna 3 AulaN10, osso 1 Magazzino, pozione 1 AulaN11, pietra 5 Atrio, fiore 2 Cortile
+Uscite: Atrio nord Biblioteca, Biblioteca sud Atrio, Atrio est AulaN11, AulaN11 ovest Atrio, Atrio ovest Cortile, Cortile est Atrio, Cortile ovest AulaN11, AulaN11 est Cortile, AulaN11 nord AulaN10, AulaN10 sud AulaN11, AulaN10 est Cortile, Cortile sud Magazzino, Magazzino nord Cortile, Magazzino sud Caverna, Caverna nord Magazzino, Magazzino est StanzaMagica, StanzaMagica ovest Magazzino, StanzaMagica nord AulaN11

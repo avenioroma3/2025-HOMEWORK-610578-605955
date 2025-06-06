@@ -1,5 +1,7 @@
 package it.uniroma3.diadia;
 
+import java.io.FileNotFoundException;
+
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.giocatore.Borsa;
@@ -15,28 +17,33 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class Partita {
 
-	private IO ioConsole;
-
 	private Stanza stanzaCorrente;
 	private Stanza stanzaVincente;
 	private boolean finita;
 	public Giocatore giocatore;
-	public Labirinto labirinto; // attenzione a mettere le classi come attributo PUBBLICO se vuoi accedere ai metodi
+	public Labirinto labirinto; 
 	public Borsa borsa;
 
 	
 	public Partita(){
-//		Labirinto labirinto = new Labirinto(); // ERRORE: NON HAI ASSEGNATO GLI OGGETTI AGLI ATTRIBUTI DELLA PARTITA
-//		Giocatore giocatore = new Giocatore();
 		this.giocatore=new Giocatore();
 		this.giocatore.setBorsa(new Borsa());
-		this.labirinto=new Labirinto();
+		try {
+		    this.labirinto = Labirinto.caricaDaFile("labirinto.txt");
+		} catch (FileNotFoundException | FormatoFileNonValidoException e) {
+		    e.printStackTrace();
+		    this.labirinto = null;
+		}
 		this.finita = false;
-//		giocatore.setCfu(CFU_INIZIALI); // settato direttamente alla creazione del giocatore
-//		System.out.println("ho cfu: "+giocatore.getCfu());
-		this.stanzaCorrente=labirinto.getEntrata();
-		this.stanzaVincente=labirinto.getUscita();
-//		this.ioConsole=io; // prima non avevo messo la console, motivo ch
+		this.stanzaCorrente = labirinto.getStanzaIniziale();
+		this.stanzaVincente = labirinto.getStanzaVincente();
+	}
+	
+	public Partita(Labirinto labirinto) {
+		this();
+	    this.labirinto = labirinto;
+	    this.stanzaCorrente = labirinto.getStanzaIniziale();
+	    this.stanzaVincente = labirinto.getStanzaVincente();
 	}
 
 	public Stanza getStanzaVincente() {
@@ -55,6 +62,11 @@ public class Partita {
 		return this.stanzaCorrente;
 	}
 	
+	public void setLabirinto(Labirinto labirinto) {
+		this.labirinto = labirinto;
+		this.stanzaCorrente = labirinto.getStanzaIniziale();
+	    this.stanzaVincente = labirinto.getStanzaVincente();
+	}
 	/**
 	 * Restituisce vero se e solo se la partita e' stata vinta
 	 * @return vero se partita vinta
@@ -70,7 +82,7 @@ public class Partita {
 	public boolean isFinita() { //*****!!IMPORTANTE!!***** 
 		return finita || vinta() || (giocatore.getCfu() == 0);
 	}
-
+	
 	/**
 	 * Imposta la partita come finita
 	 *
@@ -78,25 +90,8 @@ public class Partita {
 	public void setFinita() {
 		this.finita = true;
 	}
-	
-
-	public boolean giocatoreIsVivo() {
-		return this.giocatore.getCfu()!=0; // verifica se ha 0hp
-	}
 
 	public Giocatore getGiocatore() {
 		return this.giocatore;
 	}
-	
-	
-	// metodi per fare in modo di poter usare l'unica istanza di IOConsole in DiaDia in tutto il codice.
-	
-	public IO getIOConsole() {
-		return ioConsole;
-	}
-
-	public void setIOConsole(IO ioConsole) {
-		this.ioConsole = ioConsole;
-	}
-
 }

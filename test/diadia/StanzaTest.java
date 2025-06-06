@@ -52,7 +52,8 @@ class StanzaTest {
 		
 		stanza1.impostaStanzaAdiacente("Nord", stanza2);
 		stanza1.impostaStanzaAdiacente("Est", stanza3);
-		stanza2.impostaStanzaAdiacente("Est", stanza3);
+		stanza3.impostaStanzaAdiacente("Ovest", stanza1);
+		stanza2.impostaStanzaAdiacente("Sud", stanza1);
 		
 		
 		stanza1.addAttrezzo(tool1);
@@ -64,7 +65,6 @@ class StanzaTest {
 
 
 	}
-	
 	
 	
 	// METODI PER VERIFICARE il metodo "getAttrezzo"
@@ -116,12 +116,16 @@ class StanzaTest {
 
 		@Test 
 		public void VerificaRimozioneAttrezzo () {
-			assertTrue(stanza1.removeAttrezzo(tool1));
+			assertTrue(stanza1.hasAttrezzo(tool1.getNome()));
+			stanza1.removeAttrezzo(tool1);
+			assertFalse(stanza1.hasAttrezzo(tool1.getNome()));
 		}
 		
 		@Test
 		public void VerificaRimozioneAttrezzoInesitente() {
+			assertFalse(stanza1.hasAttrezzo(tool10.getNome()));
 			assertFalse(stanza1.removeAttrezzo(tool10));
+			assertFalse(stanza1.hasAttrezzo(tool10.getNome()));
 		}
 		
 		@Test
@@ -135,8 +139,7 @@ class StanzaTest {
 		public void verificaEsistenzaStanzeAdiacenti() {
 			assertEquals(stanza2,stanza1.getStanzaAdiacente("Nord"));
 			assertEquals(stanza3,stanza1.getStanzaAdiacente("Est"));
-			assertEquals(stanza3,stanza2.getStanzaAdiacente("Est"));
-
+			assertEquals(stanza1,stanza3.getStanzaAdiacente("Ovest"));
 		}
 	
 		

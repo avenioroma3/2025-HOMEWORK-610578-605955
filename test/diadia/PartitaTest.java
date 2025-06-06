@@ -50,6 +50,4 @@ class PartitaTest {
 		assertTrue(partita.isFinita());
 		
 	}
-
-	
 }
